@@ -1,0 +1,109 @@
+﻿@page
+@model EmployeeMangement.Pages.AdminModel
+@* @{
+    ViewBag["Title"] = "EmployeeList";
+} *@
+
+
+<p class="d-flex align-items-center">
+    <a asp-page="./AddEmployee" class="btn btn-primary">Add Employee</a>
+    <a asp-page="./AddDepartment" class="btn btn-success">Add Department</a>
+@* 
+    <!-- Search Bar -->
+    <form method="get" class="mr-3">
+        <div class="form-group mb-0">
+            <input type="text" name="searchTerm" class="form-control" placeholder="Search by Employee ID value="@Request.Query["searchTerm"]" />
+        </div>
+        <button type="submit" class="btn btn-primary ml-2">Search</button>
+    </form> *@
+
+</p>
+<hr/>
+<h3>Employee List</h3>
+<hr />
+<table class="table table-success table-striped table-responsive table-hover">
+<thead>
+    <tr>
+        <th>
+            Employee ID
+        </th>
+        <th>
+           Employee Name
+        </th>
+        <th>
+            Email
+        </th>
+        <th>
+            Department
+        </th>
+        <th>
+           PhoneNumber
+        </th>
+        <th>
+            Action
+        </th>
+
+
+    </tr>
+
+
+
+</thead>
+
+<tbody>
+    @if (Model != null && Model.Employee.Any())
+    {
+        @foreach(var employee in Model.Employee)
+        {
+            <tr>
+
+                <td>
+                     @Html.DisplayFor(item => employee.EmpID)
+                </td>
+                <td>
+                    @Html.DisplayFor(item => employee.EmpName)
+                </td>
+                <td>
+                    @Html.DisplayFor(item => employee.EmpEmail)
+                </td>
+               @*  <td>
+                    @Html.DisplayFor(item => employee.Department.DepartmentName)
+                </td> *@
+                <td>
+                        @if (employee.Department != null)
+                        {
+                            @Html.DisplayFor(item => employee.Department.DepartmentName)
+                        }
+                        else
+                        {
+                            <text>Not Assigned</text>
+                        }
+                </td>
+                    
+                <td>
+                    @Html.DisplayFor(item => employee.EmpPhoneNumber)
+                </td>
+                <td>
+                        <a asp-page="./Edit" asp-route-id="@employee.EmpID" class="btn btn-success">Edit</a>
+                        <a asp-page="./Delete" asp-route-id="@employee.EmpID" class="btn btn-danger">Delete</a>
+
+                </td>
+
+
+
+            </tr>
+        }
+    }
+    else
+    {
+       <tr>
+           <td colspan="5" class="text-center">
+                Employees not available at this moment!
+           </td>
+       </tr> 
+    }
+
+
+
+</tbody>
+</table>

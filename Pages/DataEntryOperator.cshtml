@@ -1,0 +1,98 @@
+﻿@page
+@model EmployeeMangement.Pages.DataEntryOperatorModel
+@* @{
+} *@
+
+<p>
+    <a asp-asp-page="AddEmployee" class="btn btn-primary">Add Employee</a>
+    
+
+</p>
+<hr />
+<h3>Employee List</h3>
+<hr/>
+<table class="table table-success table-striped table-responsive table-hover">
+    <thead>
+        <tr>
+            <th>
+                Employee ID
+            </th>
+            <th>
+                Employee Name
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Department
+            </th>
+            <th>
+                PhoneNumber
+            </th>
+           @*  <th>
+                Action
+            </t *@
+
+
+        </tr>
+
+
+
+    </thead>
+
+    <tbody>
+        @if (Model != null && Model.Employee.Any())
+        {
+            @foreach (var employee in Model.Employee)
+            {
+                <tr>
+
+                    <td>
+                        @Html.DisplayFor(item => employee.EmpID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(item => employee.EmpName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(item => employee.EmpEmail)
+                    </td>
+                    @*  <td>
+            @Html.DisplayFor(item => employee.Department.DepartmentName)
+            </td> *@
+                    <td>
+                        @if (employee.Department != null)
+                        {
+                            @Html.DisplayFor(item => employee.Department.DepartmentName)
+                        }
+                        else
+                        {
+                            <text>Not Assigned</text>
+                        }
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(item => employee.EmpPhoneNumber)
+                    </td>
+                   @*  <td>
+                        <a asp asp-page="./Edit" asp-asp-route-itemid"="@employee.EmpID" class="btn btn-success">Edit</a>
+                        <a asp asp-page="./Delete" asp-asp-route-itemid"="@employee.EmpID" class="btn btn-danger">Delete</a>
+                    </td>
+ *@
+
+
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5" class="text-center">
+                    Employees not available at this moment!
+                </td>
+            </tr>
+        }
+
+
+
+    </tbody>
+</table>
